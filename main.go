@@ -1,12 +1,11 @@
 package main
 
 import (
+	"github.com/JeongSikKim88/go-jobscrapper/accounts"
 	"fmt"
 )
 
-func main () {
-	jack := map[string]string{"name":"jack","age":"33"}
-	for key, value :=range jack{
-		fmt.Println(key,value)
-	}
+func main() {
+	account := accounts.NewAccount("jack")
+	fmt.Println(account)
 }

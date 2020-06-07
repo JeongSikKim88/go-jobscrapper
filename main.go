@@ -1,15 +1,18 @@
 package main
 
 import (
-	"strings"
 	"fmt"
 )
 
-func lenAndUpper(name string) (int, string){
-	return len(name), strings.ToUpper(name)
+func superadd(numbers ...int) int {
+	total := 0
+	for _, number := range numbers {
+		total += number
+	}
+	return total
 }
 
 func main() {
-	totalLength, upperName := lenAndUpper("jack")
-	fmt.Println(totalLength,upperName)
+	result := superadd(1, 2, 3, 4, 5, 6)
+	fmt.Println(result)
 }

@@ -4,8 +4,9 @@ import (
 	"fmt"
 )
 
-func main() {
-	names := []string{"jack", "gonyon", "surl"}
-	names = append(names, "leo")
-	fmt.Println(names)
+func main () {
+	jack := map[string]string{"name":"jack","age":"33"}
+	for key, value :=range jack{
+		fmt.Println(key,value)
+	}
 }

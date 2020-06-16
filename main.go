@@ -1,11 +1,13 @@
 package main
 
 import (
-	"github.com/JeongSikKim88/go-jobscrapper/accounts"
 	"fmt"
+
+	"github.com/JeongSikKim88/go-jobscrapper/accounts"
 )
 
 func main() {
 	account := accounts.NewAccount("jack")
-	fmt.Println(account)
+	account.Deposit(10)
+	fmt.Println(account.Balance())
 }

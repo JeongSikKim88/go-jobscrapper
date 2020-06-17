@@ -2,16 +2,14 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/JeongSikKim88/go-jobscrapper/accounts"
+	"github.com/JeongSikKim88/go-jobscrapper/mydict"
 )
 
 func main() {
-	account := accounts.NewAccount("jack")
-	account.Deposit(10)
-	err := account.Withdraw(20)
+	dictionary := mydict.Dictionary{"first": "First word"}
+	definition, err := dictionary.Search("first")
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(account.Balance(), account.Owner())
+	fmt.Println(definition)
 }

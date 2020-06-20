@@ -2,14 +2,24 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/JeongSikKim88/go-jobscrapper/mydict"
 )
 
 func main() {
-	dictionary := mydict.Dictionary{"first": "First word"}
-	definition, err := dictionary.Search("first")
+	dictionary := mydict.Dictionary{}
+	word := "hello"
+	definition := "Greeting"
+	err := dictionary.Add(word, definition)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(definition)
+
+	hello, _ := dictionary.Search(word)
+	fmt.Println(hello)
+
+	err2 := dictionary.Add(word, definition)
+	if err2 != nil {
+		fmt.Println(err2)
+	}
 }

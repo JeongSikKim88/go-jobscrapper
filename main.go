@@ -11,9 +11,9 @@ func main() {
 	for _, person := range people {
 		go isSexy(person, c)
 	}
-	
+
 	// you have two way for receving two chan msg
-	
+
 	// #1
 	// result := <-c
 	// fmt.Println(result)

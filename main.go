@@ -1,37 +1,53 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"time"
+	"net/http"
 )
 
+type requestResult struct {
+	url    string
+	status string
+}
+
+var errRequestFailed = errors.New("Request failed")
+
 func main() {
-	c := make(chan string)
-	people := [4]string{"nico", "flynn", "jack", "gyeonhyeong"}
-	for _, person := range people {
-		go isSexy(person, c)
+	results := make(map[string]string)
+	c := make(chan requestResult)
+	urls := []string{
+		"https://airbnb.com/",
+		"https://www.google.com/",
+		"https://www.amazon.com/",
+		"https://www.reddit.com/",
+		"https://www.google.com/",
+		"https://soundcloud.com/",
+		"https://www.facebook.com/",
+		"https://www.instagram.com/",
+		"https://academy.nomadcoders.co/",
 	}
 
-	// you have two way for receving two chan msg
+	for _, url := range urls {
+		go hitURL(url, c)
+	}
 
-	// #1
-	// result := <-c
-	// fmt.Println(result)
+	for i := 0; i < len(urls); i++ {
+		result := <-c
+		results[result.url] = result.status
+	}
 
-	// #2
-	// fmt.Println("Waiting for a message")
-	// resultOne := <-c
-	// resultTwo := <-c
-	// fmt.Println("Received this message : ", resultOne)
-	// fmt.Println("Received second message : ", resultTwo)
-
-	fmt.Println("Waiting for a message")
-	for i := 0; i < len(people); i++ {
-		fmt.Println("Received ", i, "message : ", <-c)
+	for url, status := range results {
+		fmt.Println(url, status)
 	}
 }
 
-func isSexy(person string, c chan string) {
-	time.Sleep(time.Second * 10)
-	c <- person + " is Sexy"
+func hitURL(url string, c chan<- requestResult) {
+	// fmt.Println("Checking: ", url)
+	resp, err := http.Get(url)
+	status := "OK"
+	if err != nil || resp.StatusCode >= 400 {
+		status = "FAILED"
+	}
+	c <- requestResult{url: url, status: status}
 }
